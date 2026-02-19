@@ -25,6 +25,7 @@ type
     NewFileMenu: TMenuItem;
     OpenFileMenu: TMenuItem;
 
+    procedure FormDropFiles(Sender: TObject; const FileNames: array of string);
     procedure FormShow(Sender: TObject);
     procedure NewFileMenuClick(Sender: TObject);
     procedure ExitFileMenuClick(Sender: TObject);
@@ -46,6 +47,12 @@ implementation
 procedure TForm1.FormShow(Sender: TObject);
 begin
   ContentMemo.clear
+end;
+
+procedure TForm1.FormDropFiles(Sender: TObject; const FileNames: array of string);
+begin
+  ContentMemo.clear;
+  ContentMemo.Lines.LoadFromFile(filenames[0])
 end;
 
 procedure TForm1.ExitFileMenuClick(Sender: TObject);

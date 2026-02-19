@@ -63,21 +63,23 @@ implementation
 { TForm1 }
 
 procedure TForm1.UpdateCaption;
+var
+  prefix: string;
 begin
   if dirtyEditor then
-    caption := '* ';
+    prefix := '* '
+  else prefix := '';
 
   if activeFilepath = '' then
-    caption := caption + 'Untitled'
+    caption := prefix + 'Untitled'
   else
-    caption := caption + activeFilepath;
+    caption := prefix + activeFilepath;
 
   Caption := caption + ' - LazNote';
 end;
 
 procedure TForm1.FormShow(Sender: TObject);
 begin
-  dirtyEditor := false;
   NewFileMenuClick(nil)
 end;
 

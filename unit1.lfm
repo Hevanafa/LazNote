@@ -108,6 +108,7 @@ object Form1: TForm1
       end
       object GoToEditMenu: TMenuItem
         Caption = '&Go to...'
+        ShortCut = 16455
         OnClick = GoToEditMenuClick
       end
       object Separator3: TMenuItem

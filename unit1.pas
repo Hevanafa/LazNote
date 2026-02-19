@@ -63,6 +63,7 @@ type
     procedure CutEditMenuClick(Sender: TObject);
     procedure DeleteEditMenuClick(Sender: TObject);
     procedure SelectAllEditMenuClick(Sender: TObject);
+    procedure TimeDateEditMenuClick(Sender: TObject);
     procedure UndoEditMenuClick(Sender: TObject);
     procedure PasteEditMenuClick(Sender: TObject);
 
@@ -178,6 +179,17 @@ end;
 procedure TForm1.SelectAllEditMenuClick(Sender: TObject);
 begin
   ContentMemo.SelectAll
+end;
+
+procedure TForm1.TimeDateEditMenuClick(Sender: TObject);
+var
+  inserted: String;
+begin
+  inserted := DateTimeToStr(now);
+
+  ContentMemo.SelText := inserted;
+  ContentMemo.SelStart := ContentMemo.SelStart + length(inserted);
+  ContentMemo.SelLength := 0;
 end;
 
 procedure TForm1.FormCloseQuery(Sender: TObject; var CanClose: Boolean);

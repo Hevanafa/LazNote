@@ -112,6 +112,7 @@ object Form1: TForm1
       end
       object TimeDateEditMenu: TMenuItem
         Caption = 'Time / &Date'
+        OnClick = TimeDateEditMenuClick
       end
     end
     object FormatMenu: TMenuItem

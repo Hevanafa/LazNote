@@ -40,7 +40,7 @@ type
     procedure ExitFileMenuClick(Sender: TObject);
 
   private
-    dirtyEditor, lastDirtyEditor: boolean;
+    dirtyEditor: boolean;
     activeFilepath: string;
 
     procedure LoadTextFile(const filename: string);
@@ -64,15 +64,15 @@ implementation
 
 procedure TForm1.UpdateCaption;
 begin
+  if dirtyEditor then
+    caption := '* ';
+
   if activeFilepath = '' then
-    caption := 'Untitled'
+    caption := caption + 'Untitled'
   else
-    caption := activeFilepath;
+    caption := caption + activeFilepath;
 
   Caption := caption + ' - LazNote';
-
-  if lastDirtyEditor then
-    caption := caption + ' (*)';
 end;
 
 procedure TForm1.FormShow(Sender: TObject);
@@ -89,22 +89,18 @@ end;
 procedure TForm1.ContentMemoChange(Sender: TObject);
 begin
   dirtyEditor := true;
-
-  if lastDirtyEditor <> dirtyEditor then begin
-    lastDirtyEditor := dirtyEditor;
-    UpdateCaption
-  end;
+  UpdateCaption
 end;
 
 procedure TForm1.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
 begin
   case CheckDirtyEditor of
     mrYes:
-      SaveFileMenuClick(nil);
+      SaveFileMenuClick(self);
+    mrNo:
+      CanClose := true;
     mrCancel:
       CanClose := false;
-    else
-      CanClose := true;
   end;
 end;
 
@@ -120,7 +116,11 @@ end;
 
 procedure TForm1.NewFileMenuClick(Sender: TObject);
 begin
-  if CheckDirtyEditor = mrYes then SaveFileMenuClick(NewFileMenu);
+  case CheckDirtyEditor of
+    mrYes: SaveFileMenuClick(NewFileMenu);
+    mrNo: ;
+    mrCancel: exit;
+  end;
 
   activeFilepath := '';
   ContentMemo.clear;
@@ -133,9 +133,9 @@ var
   od: TOpenDialog;
 begin
   case CheckDirtyEditor of
-    mrYes: ; { TODO: Perform save file }
+    mrYes: SaveFileMenuClick(OpenFileMenu);
     mrNo: ;
-  else exit
+    mrCancel: exit;
   end;
 
   od := TOpenDialog.create(self);

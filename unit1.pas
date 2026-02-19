@@ -20,11 +20,15 @@ type
 
     FileMenu: TMenuItem;
     ExitFileMenu: TMenuItem;
+    EditMenu: TMenuItem;
+    FormatMenu: TMenuItem;
+    HelpMenu: TMenuItem;
+    StatusBarViewMenu: TMenuItem;
+    ViewMenu: TMenuItem;
     SaveAsFileMenu: TMenuItem;
     SaveFileMenu: TMenuItem;
     NewFileMenu: TMenuItem;
     OpenFileMenu: TMenuItem;
-    Separator1: TMenuItem;
     Separator2: TMenuItem;
 
     procedure ContentMemoChange(Sender: TObject);
@@ -38,6 +42,7 @@ type
     procedure SaveFileMenuClick(Sender: TObject);
     procedure SaveAsFileMenuClick(Sender: TObject);
     procedure ExitFileMenuClick(Sender: TObject);
+    procedure StatusBarViewMenuClick(Sender: TObject);
 
   private
     dirtyEditor: boolean;
@@ -193,6 +198,12 @@ end;
 procedure TForm1.ExitFileMenuClick(Sender: TObject);
 begin
   close
+end;
+
+procedure TForm1.StatusBarViewMenuClick(Sender: TObject);
+begin
+  MainStatusBar.Visible := not MainStatusBar.Visible;
+  StatusBarViewMenu.Checked := MainStatusBar.Visible;
 end;
 
 function TForm1.CheckFileSize(const filename: string): TModalResult;

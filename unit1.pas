@@ -155,19 +155,21 @@ var
   line, col, a, pos: longint;
 begin
   pos := ContentMemo.SelStart;
+
+{
   line := 0;
   a := 0;
 
-  { MainStatusBar.Panels[1].Text := format('Char %d', [ContentMemo.SelStart]) }
-
-  while (line < ContentMemo.lines.count) and (a + length(ContentMemo.Lines[line]) + 1 <= pos) do begin
-    a := a + length(ContentMemo.Lines[line]) + 1;  { +1 for the newline }
+  while (line < ContentMemo.lines.count) and (a + length(ContentMemo.Lines[line]) <= pos) do begin
+    inc(a, length(ContentMemo.Lines[line]));
     inc(line)
   end;
 
   col := pos - a;
+}
 
-  MainStatusBar.Panels[1].Text := format('Ln %d, Col %d', [line + 1, col + 1])
+  MainStatusBar.Panels[1].Text := format('Ln %d, Col %d', [line, col]);
+  MainStatusBar.Panels[2].Text := format('Char %d', [ContentMemo.SelStart])
 end;
 
 procedure TForm1.ContentMemoMouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);

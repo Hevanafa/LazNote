@@ -69,9 +69,8 @@ end;
 
 procedure TForm1.FormShow(Sender: TObject);
 begin
-  ContentMemo.clear;
   dirtyEditor := false;
-  UpdateCaption
+  NewFileMenuClick(nil)
 end;
 
 procedure TForm1.FormDropFiles(Sender: TObject; const FileNames: array of string);
@@ -97,7 +96,7 @@ end;
 { Used to check if the user wants to save the file or not }
 function TForm1.CheckDirtyEditor: TModalResult;
 begin
-  if dirtyEditor then
+  if not dirtyEditor then
     CheckDirtyEditor := mrNo
   else
     CheckDirtyEditor := MessageDlg('Save file [filename]?', 'Save', mtConfirmation, mbYesNoCancel, 0);
@@ -183,8 +182,11 @@ end;
 
 procedure TForm1.NewFileMenuClick(Sender: TObject);
 begin
-  CheckDirtyEditor;
+  if CheckDirtyEditor = mrYes then ;  { TODO: Perform save file }
+
   ContentMemo.clear;
+  dirtyEditor := false;
+  UpdateCaption
 end;
 
 end.

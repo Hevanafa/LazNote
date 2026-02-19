@@ -42,7 +42,6 @@ type
     HelpMenu: TMenuItem;
 
     procedure ContentMemoChange(Sender: TObject);
-    procedure ContentMemoKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure ContentMemoKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure ContentMemoMouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
     procedure ContentMemoMouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
@@ -119,11 +118,6 @@ procedure TForm1.ContentMemoChange(Sender: TObject);
 begin
   dirtyEditor := true;
   UpdateCaption
-end;
-
-procedure TForm1.ContentMemoKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
-begin
-  UpdatePositionText
 end;
 
 procedure TForm1.ContentMemoKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
@@ -219,8 +213,10 @@ begin
 
   activeFilepath := '';
   ContentMemo.clear;
+
   dirtyEditor := false;
-  UpdateCaption
+  UpdateCaption;
+  UpdatePositionText
 end;
 
 procedure TForm1.OpenFileMenuClick(Sender: TObject);
@@ -344,15 +340,19 @@ begin
   lines.free;
 
   activeFilepath := filename;
+
   dirtyEditor := false;
-  UpdateCaption
+  UpdateCaption;
+  UpdatePositionText
 end;
 
 procedure TForm1.SaveTextFile(const filename: string);
 begin
   ContentMemo.Lines.SaveToFile(filename);
+
   dirtyEditor := false;
-  UpdateCaption
+  UpdateCaption;
+  UpdatePositionText
 end;
 
 end.

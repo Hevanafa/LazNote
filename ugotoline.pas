@@ -22,7 +22,7 @@ type
   private
 
   public
-
+    procedure SetMaximum(n: longint);
   end;
 
 implementation
@@ -35,6 +35,12 @@ procedure TGoToLine.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
 begin
   CanClose := false;
   hide
+end;
+
+procedure TGoToLine.SetMaximum(n: longint);
+begin
+  LineNumberLabel.Caption := format('Line number (1 to %d):', [n]);
+  LineNumberEdit.MaxValue := n
 end;
 
 end.

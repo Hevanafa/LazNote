@@ -128,6 +128,7 @@ begin
     GoToLineForm := TGoToLine.create(self);
 
   if not GoToLineForm.Showing then begin
+    GoToLineForm.SetMaximum(ContentMemo.Lines.count);
     GoToLineForm.Show;
     GoToLineForm.SetFocus
   end;

@@ -19,6 +19,7 @@ type
     MainStatusBar: TStatusBar;
 
     FileMenu: TMenuItem;
+    SelectAllEditMenu: TMenuItem;
     Separator1: TMenuItem;
     Separator3: TMenuItem;
     ExitFileMenu: TMenuItem;
@@ -59,6 +60,7 @@ type
     procedure CopyEditMenuClick(Sender: TObject);
     procedure CutEditMenuClick(Sender: TObject);
     procedure DeleteEditMenuClick(Sender: TObject);
+    procedure SelectAllEditMenuClick(Sender: TObject);
     procedure UndoEditMenuClick(Sender: TObject);
     procedure PasteEditMenuClick(Sender: TObject);
 
@@ -168,6 +170,11 @@ end;
 procedure TForm1.DeleteEditMenuClick(Sender: TObject);
 begin
   ContentMemo.SelText := ''
+end;
+
+procedure TForm1.SelectAllEditMenuClick(Sender: TObject);
+begin
+  ContentMemo.SelectAll
 end;
 
 procedure TForm1.FormCloseQuery(Sender: TObject; var CanClose: Boolean);

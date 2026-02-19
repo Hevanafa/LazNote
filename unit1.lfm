@@ -105,6 +105,10 @@ object Form1: TForm1
       object Separator3: TMenuItem
         Caption = '-'
       end
+      object SelectAllEditMenu: TMenuItem
+        Caption = 'Select &All'
+        OnClick = SelectAllEditMenuClick
+      end
       object TimeDateEditMenu: TMenuItem
         Caption = 'Time / &Date'
       end

@@ -26,17 +26,23 @@ type
     OpenFileMenu: TMenuItem;
 
     procedure ContentMemoChange(Sender: TObject);
+
+    procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure FormDropFiles(Sender: TObject; const FileNames: array of string);
     procedure FormShow(Sender: TObject);
+
     procedure NewFileMenuClick(Sender: TObject);
-    procedure ExitFileMenuClick(Sender: TObject);
     procedure OpenFileMenuClick(Sender: TObject);
+    procedure SaveAsFileMenuClick(Sender: TObject);
+    procedure SaveFileMenuClick(Sender: TObject);
+    procedure ExitFileMenuClick(Sender: TObject);
 
   private
     dirtyEditor, lastDirtyEditor: boolean;
     activeFilepath: string;
 
     procedure LoadTextFile(const filename: string);
+    procedure SaveTextFile(const filename: string);
     function CheckFileSize(const filename: string): TModalResult;
     function CheckDirtyEditor: TModalResult;
     procedure UpdateCaption;
@@ -63,8 +69,8 @@ begin
 
   Caption := caption + ' - LazNote';
 
-  if dirtyEditor then
-    Caption := caption + ' (*)';
+  if lastDirtyEditor then
+    caption := caption + ' (*)';
 end;
 
 procedure TForm1.FormShow(Sender: TObject);
@@ -85,6 +91,18 @@ begin
   if lastDirtyEditor <> dirtyEditor then begin
     lastDirtyEditor := dirtyEditor;
     UpdateCaption
+  end;
+end;
+
+procedure TForm1.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
+begin
+  case CheckDirtyEditor of
+    mrYes:
+      SaveFileMenuClick(nil);
+    mrCancel:
+      CanClose := false;
+    else
+      CanClose := true;
   end;
 end;
 
@@ -123,6 +141,32 @@ begin
   finally
     od.free
   end;
+end;
+
+procedure TForm1.SaveAsFileMenuClick(Sender: TObject);
+var
+  sd: TSaveDialog;
+begin
+  sd := TSaveDialog.Create(Self);
+
+  try
+    sd.filter := 'Text files|*.txt|All files|*.*';
+    sd.DefaultExt := 'txt';
+
+    if sd.Execute then begin
+      activeFilepath := sd.FileName;
+      SaveTextFile(sd.filename)
+    end;
+  finally
+    sd.free
+  end;
+end;
+
+procedure TForm1.SaveFileMenuClick(Sender: TObject);
+begin
+  if activeFilepath = '' then SaveAsFileMenuClick(sender);
+
+  SaveTextFile(activeFilepath)
 end;
 
 function TForm1.CheckFileSize(const filename: string): TModalResult;
@@ -180,10 +224,19 @@ begin
   UpdateCaption
 end;
 
+procedure TForm1.SaveTextFile(const filename: string);
+begin
+  ContentMemo.Lines.SaveToFile(filename);
+  dirtyEditor := false;
+  UpdateCaption
+end;
+
+
 procedure TForm1.NewFileMenuClick(Sender: TObject);
 begin
-  if CheckDirtyEditor = mrYes then ;  { TODO: Perform save file }
+  if CheckDirtyEditor = mrYes then SaveFileMenuClick(NewFileMenu);
 
+  activeFilepath := '';
   ContentMemo.clear;
   dirtyEditor := false;
   UpdateCaption

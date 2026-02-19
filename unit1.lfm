@@ -8,6 +8,7 @@ object Form1: TForm1
   ClientHeight = 240
   ClientWidth = 320
   Menu = MainMenu
+  OnCloseQuery = FormCloseQuery
   OnDropFiles = FormDropFiles
   OnShow = FormShow
   object ContentMemo: TMemo
@@ -46,9 +47,11 @@ object Form1: TForm1
       end
       object SaveFileMenu: TMenuItem
         Caption = '&Save'
+        OnClick = SaveFileMenuClick
       end
       object SaveAsFileMenu: TMenuItem
         Caption = 'Save &as...'
+        OnClick = SaveAsFileMenuClick
       end
       object ExitFileMenu: TMenuItem
         Caption = 'E&xit'

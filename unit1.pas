@@ -19,6 +19,8 @@ type
     MainStatusBar: TStatusBar;
 
     FileMenu: TMenuItem;
+    FontFormatMenu: TMenuItem;
+    WordWrapFormatMenu: TMenuItem;
     SelectAllEditMenu: TMenuItem;
     Separator1: TMenuItem;
     Separator3: TMenuItem;
@@ -65,6 +67,7 @@ type
     procedure PasteEditMenuClick(Sender: TObject);
 
     procedure StatusBarViewMenuClick(Sender: TObject);
+    procedure WordWrapFormatMenuClick(Sender: TObject);
 
   private
     dirtyEditor: boolean;
@@ -289,6 +292,14 @@ procedure TForm1.StatusBarViewMenuClick(Sender: TObject);
 begin
   MainStatusBar.Visible := not MainStatusBar.Visible;
   StatusBarViewMenu.Checked := MainStatusBar.Visible;
+end;
+
+procedure TForm1.WordWrapFormatMenuClick(Sender: TObject);
+begin
+  ContentMemo.WordWrap := not ContentMemo.WordWrap;
+
+  { ContentMemo.ScrollBars := ssBoth; }
+  WordWrapFormatMenu.Checked := ContentMemo.WordWrap;
 end;
 
 procedure TForm1.UndoEditMenuClick(Sender: TObject);

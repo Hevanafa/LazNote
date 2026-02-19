@@ -21,7 +21,7 @@ object Form1: TForm1
     Lines.Strings = (
       'ContentMemo'
     )
-    ScrollBars = ssBoth
+    ScrollBars = ssAutoBoth
     TabOrder = 0
     WordWrap = False
     OnChange = ContentMemoChange
@@ -116,6 +116,13 @@ object Form1: TForm1
     end
     object FormatMenu: TMenuItem
       Caption = 'F&ormat'
+      object WordWrapFormatMenu: TMenuItem
+        Caption = '&Word wrap'
+        OnClick = WordWrapFormatMenuClick
+      end
+      object FontFormatMenu: TMenuItem
+        Caption = '&Font'
+      end
     end
     object ViewMenu: TMenuItem
       Caption = '&View'

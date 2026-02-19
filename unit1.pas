@@ -35,8 +35,8 @@ type
 
     procedure NewFileMenuClick(Sender: TObject);
     procedure OpenFileMenuClick(Sender: TObject);
-    procedure SaveAsFileMenuClick(Sender: TObject);
     procedure SaveFileMenuClick(Sender: TObject);
+    procedure SaveAsFileMenuClick(Sender: TObject);
     procedure ExitFileMenuClick(Sender: TObject);
 
   private
@@ -108,11 +108,6 @@ begin
   end;
 end;
 
-procedure TForm1.ExitFileMenuClick(Sender: TObject);
-begin
-  close
-end;
-
 { Used to check if the user wants to save the file or not }
 function TForm1.CheckDirtyEditor: TModalResult;
 begin
@@ -120,6 +115,17 @@ begin
     CheckDirtyEditor := mrNo
   else
     CheckDirtyEditor := MessageDlg('Save file [filename]?', 'Save', mtConfirmation, mbYesNoCancel, 0);
+end;
+
+
+procedure TForm1.NewFileMenuClick(Sender: TObject);
+begin
+  if CheckDirtyEditor = mrYes then SaveFileMenuClick(NewFileMenu);
+
+  activeFilepath := '';
+  ContentMemo.clear;
+  dirtyEditor := false;
+  UpdateCaption
 end;
 
 procedure TForm1.OpenFileMenuClick(Sender: TObject);
@@ -145,6 +151,13 @@ begin
   end;
 end;
 
+procedure TForm1.SaveFileMenuClick(Sender: TObject);
+begin
+  if activeFilepath = '' then SaveAsFileMenuClick(sender);
+
+  SaveTextFile(activeFilepath)
+end;
+
 procedure TForm1.SaveAsFileMenuClick(Sender: TObject);
 var
   sd: TSaveDialog;
@@ -164,11 +177,9 @@ begin
   end;
 end;
 
-procedure TForm1.SaveFileMenuClick(Sender: TObject);
+procedure TForm1.ExitFileMenuClick(Sender: TObject);
 begin
-  if activeFilepath = '' then SaveAsFileMenuClick(sender);
-
-  SaveTextFile(activeFilepath)
+  close
 end;
 
 function TForm1.CheckFileSize(const filename: string): TModalResult;
@@ -229,17 +240,6 @@ end;
 procedure TForm1.SaveTextFile(const filename: string);
 begin
   ContentMemo.Lines.SaveToFile(filename);
-  dirtyEditor := false;
-  UpdateCaption
-end;
-
-
-procedure TForm1.NewFileMenuClick(Sender: TObject);
-begin
-  if CheckDirtyEditor = mrYes then SaveFileMenuClick(NewFileMenu);
-
-  activeFilepath := '';
-  ContentMemo.clear;
   dirtyEditor := false;
   UpdateCaption
 end;

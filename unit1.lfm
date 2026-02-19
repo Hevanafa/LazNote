@@ -27,6 +27,7 @@ object Form1: TForm1
     OnKeyDown = ContentMemoKeyDown
     OnKeyUp = ContentMemoKeyUp
     OnMouseDown = ContentMemoMouseDown
+    OnMouseUp = ContentMemoMouseUp
   end
   object MainStatusBar: TStatusBar
     Left = 0

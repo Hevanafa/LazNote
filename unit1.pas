@@ -45,6 +45,7 @@ type
     procedure ContentMemoKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure ContentMemoKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure ContentMemoMouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+    procedure ContentMemoMouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure FormDropFiles(Sender: TObject; const FileNames: array of string);
@@ -131,11 +132,31 @@ begin
 end;
 
 procedure TForm1.UpdatePositionText;
+var
+  line, col, a, pos: longint;
 begin
-  MainStatusBar.Panels[1].Text := format('Char %d', [ContentMemo.SelStart])
+  pos := ContentMemo.SelStart;
+  line := 0;
+  a := 0;
+
+  { MainStatusBar.Panels[1].Text := format('Char %d', [ContentMemo.SelStart]) }
+
+  while (line < ContentMemo.lines.count) and (a + length(ContentMemo.Lines[line]) + 1 <= pos) do begin
+    a := a + length(ContentMemo.Lines[line]) + 1;  { +1 for the newline }
+    inc(line)
+  end;
+
+  col := pos - a;
+
+  MainStatusBar.Panels[1].Text := format('Ln %d, Col %d', [line + 1, col + 1])
 end;
 
 procedure TForm1.ContentMemoMouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+begin
+  UpdatePositionText
+end;
+
+procedure TForm1.ContentMemoMouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 begin
   UpdatePositionText
 end;

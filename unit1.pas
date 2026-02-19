@@ -36,6 +36,7 @@ type
     dirtyEditor, lastDirtyEditor: boolean;
 
     procedure LoadTextFile(const filename: string);
+    function CheckFileSize(const filename: string): TModalResult;
     function CheckDirtyEditor: TModalResult;
     procedure UpdateCaption;
 
@@ -119,6 +120,26 @@ begin
   end;
 end;
 
+function TForm1.CheckFileSize(const filename: string): TModalResult;
+var
+  f: file of byte;
+begin
+  assignfile(f, filename);
+  reset(f);
+
+  { MessageDlg(format('File size: %d', [filesize(f)]), mtInformation, [mbOK], 0); }
+
+  if filesize(f) < 100 * 1024 then begin
+    CheckFileSize := mrYes;
+    closefile(f);
+    exit
+  end;
+
+  closefile(f);
+
+  CheckFileSize := MessageDlg('Open this large file (> 100KB)?', mtConfirmation, mbYesNo, 0)
+end;
+
 procedure TForm1.LoadTextFile(const filename: string);
 var
   f: text;
@@ -129,6 +150,8 @@ begin
     MessageDlg(format('Could not find %s!', [filename]), mtError, [mbOK], 0);
     exit
   end;
+
+  if CheckFileSize(filename) = mrNo then exit;
 
   AssignFile(f, filename);
   {$I-} reset(f); {$I+}

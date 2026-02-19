@@ -17,13 +17,17 @@ type
     MainMenu: TMainMenu;
     ContentMemo: TMemo;
     MainStatusBar: TStatusBar;
+
     FileMenu: TMenuItem;
     ExitFileMenu: TMenuItem;
     SaveAsFileMenu: TMenuItem;
     SaveFileMenu: TMenuItem;
     NewFileMenu: TMenuItem;
     OpenFileMenu: TMenuItem;
+
     procedure FormShow(Sender: TObject);
+    procedure NewFileMenuClick(Sender: TObject);
+    procedure ExitFileMenuClick(Sender: TObject);
   private
 
   public
@@ -42,6 +46,16 @@ implementation
 procedure TForm1.FormShow(Sender: TObject);
 begin
   ContentMemo.clear
+end;
+
+procedure TForm1.ExitFileMenuClick(Sender: TObject);
+begin
+  close
+end;
+
+procedure TForm1.NewFileMenuClick(Sender: TObject);
+begin
+  ContentMemo.clear;
 end;
 
 end.

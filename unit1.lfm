@@ -33,6 +33,7 @@ object Form1: TForm1
       Caption = '&File'
       object NewFileMenu: TMenuItem
         Caption = '&New'
+        OnClick = NewFileMenuClick
       end
       object OpenFileMenu: TMenuItem
         Caption = '&Open'
@@ -45,6 +46,7 @@ object Form1: TForm1
       end
       object ExitFileMenu: TMenuItem
         Caption = 'E&xit'
+        OnClick = ExitFileMenuClick
       end
     end
   end

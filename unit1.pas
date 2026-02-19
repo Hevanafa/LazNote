@@ -34,6 +34,7 @@ type
 
   private
     dirtyEditor, lastDirtyEditor: boolean;
+    activeFilepath: string;
 
     procedure LoadTextFile(const filename: string);
     function CheckFileSize(const filename: string): TModalResult;
@@ -55,10 +56,15 @@ implementation
 
 procedure TForm1.UpdateCaption;
 begin
-  Caption := 'LazNote';
+  if activeFilepath = '' then
+    caption := 'Untitled'
+  else
+    caption := activeFilepath;
+
+  Caption := caption + ' - LazNote';
 
   if dirtyEditor then
-    Caption := Caption + ' (*)';
+    Caption := caption + ' (*)';
 end;
 
 procedure TForm1.FormShow(Sender: TObject);
@@ -170,6 +176,7 @@ begin
   ContentMemo.Lines.AddStrings(lines);
   lines.free;
 
+  activeFilepath := filename;
   dirtyEditor := false;
   UpdateCaption
 end;

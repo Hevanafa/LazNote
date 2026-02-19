@@ -24,6 +24,8 @@ type
     SaveFileMenu: TMenuItem;
     NewFileMenu: TMenuItem;
     OpenFileMenu: TMenuItem;
+    Separator1: TMenuItem;
+    Separator2: TMenuItem;
 
     procedure ContentMemoChange(Sender: TObject);
 

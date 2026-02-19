@@ -39,22 +39,33 @@ object Form1: TForm1
       Caption = '&File'
       object NewFileMenu: TMenuItem
         Caption = '&New'
+        ShortCut = 16462
         OnClick = NewFileMenuClick
       end
       object OpenFileMenu: TMenuItem
         Caption = '&Open'
+        ShortCut = 16463
         OnClick = OpenFileMenuClick
+      end
+      object Separator1: TMenuItem
+        Caption = '-'
       end
       object SaveFileMenu: TMenuItem
         Caption = '&Save'
+        ShortCut = 16467
         OnClick = SaveFileMenuClick
       end
       object SaveAsFileMenu: TMenuItem
         Caption = 'Save &as...'
+        ShortCut = 24659
         OnClick = SaveAsFileMenuClick
+      end
+      object Separator2: TMenuItem
+        Caption = '-'
       end
       object ExitFileMenu: TMenuItem
         Caption = 'E&xit'
+        ShortCut = 16471
         OnClick = ExitFileMenuClick
       end
     end

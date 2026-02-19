@@ -19,30 +19,29 @@ type
     MainStatusBar: TStatusBar;
 
     FileMenu: TMenuItem;
-    ExitFileMenu: TMenuItem;
-    EditMenu: TMenuItem;
-    FormatMenu: TMenuItem;
-    HelpMenu: TMenuItem;
-    CutEditMenu: TMenuItem;
-    CopyEditMenu: TMenuItem;
-    DeleteEditMenu: TMenuItem;
-    TimeDateEditMenu: TMenuItem;
-    PasteEditMenu: TMenuItem;
     Separator1: TMenuItem;
     Separator3: TMenuItem;
-    UndoEditMenu: TMenuItem;
-    StatusBarViewMenu: TMenuItem;
-    ViewMenu: TMenuItem;
+    ExitFileMenu: TMenuItem;
     SaveAsFileMenu: TMenuItem;
     SaveFileMenu: TMenuItem;
     NewFileMenu: TMenuItem;
     OpenFileMenu: TMenuItem;
     Separator2: TMenuItem;
 
+    EditMenu: TMenuItem;
+    UndoEditMenu: TMenuItem;
+    CutEditMenu: TMenuItem;
+    CopyEditMenu: TMenuItem;
+    PasteEditMenu: TMenuItem;
+    DeleteEditMenu: TMenuItem;
+    TimeDateEditMenu: TMenuItem;
+
+    FormatMenu: TMenuItem;
+    ViewMenu: TMenuItem;
+    StatusBarViewMenu: TMenuItem;
+    HelpMenu: TMenuItem;
+
     procedure ContentMemoChange(Sender: TObject);
-    procedure CopyEditMenuClick(Sender: TObject);
-    procedure CutEditMenuClick(Sender: TObject);
-    procedure DeleteEditMenuClick(Sender: TObject);
 
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure FormDropFiles(Sender: TObject; const FileNames: array of string);
@@ -50,12 +49,17 @@ type
 
     procedure NewFileMenuClick(Sender: TObject);
     procedure OpenFileMenuClick(Sender: TObject);
-    procedure PasteEditMenuClick(Sender: TObject);
     procedure SaveFileMenuClick(Sender: TObject);
     procedure SaveAsFileMenuClick(Sender: TObject);
     procedure ExitFileMenuClick(Sender: TObject);
-    procedure StatusBarViewMenuClick(Sender: TObject);
+
+    procedure CopyEditMenuClick(Sender: TObject);
+    procedure CutEditMenuClick(Sender: TObject);
+    procedure DeleteEditMenuClick(Sender: TObject);
     procedure UndoEditMenuClick(Sender: TObject);
+    procedure PasteEditMenuClick(Sender: TObject);
+
+    procedure StatusBarViewMenuClick(Sender: TObject);
 
   private
     dirtyEditor: boolean;

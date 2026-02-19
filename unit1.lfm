@@ -42,6 +42,7 @@ object Form1: TForm1
       end
       object OpenFileMenu: TMenuItem
         Caption = '&Open'
+        OnClick = OpenFileMenuClick
       end
       object SaveFileMenu: TMenuItem
         Caption = '&Save'

@@ -30,11 +30,13 @@ type
     procedure FormShow(Sender: TObject);
     procedure NewFileMenuClick(Sender: TObject);
     procedure ExitFileMenuClick(Sender: TObject);
+    procedure OpenFileMenuClick(Sender: TObject);
 
   private
     dirtyEditor, lastDirtyEditor: boolean;
 
     procedure LoadTextFile(const filename: string);
+    function CheckDirtyEditor: TModalResult;
     procedure UpdateCaption;
 
   public
@@ -85,6 +87,38 @@ begin
   close
 end;
 
+{ Used to check if the user wants to save the file or not }
+function TForm1.CheckDirtyEditor: TModalResult;
+begin
+  if dirtyEditor then
+    CheckDirtyEditor := mrNo
+  else
+    CheckDirtyEditor := MessageDlg('Save file [filename]?', 'Save', mtConfirmation, mbYesNoCancel, 0);
+end;
+
+procedure TForm1.OpenFileMenuClick(Sender: TObject);
+var
+  od: TOpenDialog;
+begin
+  case CheckDirtyEditor of
+    mrYes: ; { TODO: Perform save file }
+    mrNo: ;
+  else exit
+  end;
+
+  od := TOpenDialog.create(self);
+
+  try
+    od.Filter := 'Text files|*.txt|All files|*.*';
+    od.DefaultExt := 'txt';
+
+    if od.Execute then
+      LoadTextFile(od.filename);
+  finally
+    od.free
+  end;
+end;
+
 procedure TForm1.LoadTextFile(const filename: string);
 var
   f: text;
@@ -119,6 +153,7 @@ end;
 
 procedure TForm1.NewFileMenuClick(Sender: TObject);
 begin
+  CheckDirtyEditor;
   ContentMemo.clear;
 end;
 

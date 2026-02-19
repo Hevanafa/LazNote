@@ -14,9 +14,16 @@ type
   { TForm1 }
 
   TForm1 = class(TForm)
-    MainMenu1: TMainMenu;
-    Memo1: TMemo;
-    StatusBar1: TStatusBar;
+    MainMenu: TMainMenu;
+    ContentMemo: TMemo;
+    MainStatusBar: TStatusBar;
+    FileMenu: TMenuItem;
+    ExitFileMenu: TMenuItem;
+    SaveAsFileMenu: TMenuItem;
+    SaveFileMenu: TMenuItem;
+    NewFileMenu: TMenuItem;
+    OpenFileMenu: TMenuItem;
+    procedure FormShow(Sender: TObject);
   private
 
   public
@@ -29,6 +36,13 @@ var
 implementation
 
 {$R *.lfm}
+
+{ TForm1 }
+
+procedure TForm1.FormShow(Sender: TObject);
+begin
+  ContentMemo.clear
+end;
 
 end.
 

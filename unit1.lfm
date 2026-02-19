@@ -6,27 +6,46 @@ object Form1: TForm1
   Caption = 'Form1'
   ClientHeight = 240
   ClientWidth = 320
-  Menu = MainMenu1
-  object Memo1: TMemo
+  Menu = MainMenu
+  OnShow = FormShow
+  object ContentMemo: TMemo
     Left = 0
     Height = 217
     Top = 0
     Width = 320
     Align = alClient
     Lines.Strings = (
-      'Memo1'
+      'ContentMemo'
     )
     TabOrder = 0
   end
-  object StatusBar1: TStatusBar
+  object MainStatusBar: TStatusBar
     Left = 0
     Height = 23
     Top = 217
     Width = 320
     Panels = <>
   end
-  object MainMenu1: TMainMenu
+  object MainMenu: TMainMenu
     Left = 8
     Top = 8
+    object FileMenu: TMenuItem
+      Caption = '&File'
+      object NewFileMenu: TMenuItem
+        Caption = '&New'
+      end
+      object OpenFileMenu: TMenuItem
+        Caption = '&Open'
+      end
+      object SaveFileMenu: TMenuItem
+        Caption = '&Save'
+      end
+      object SaveAsFileMenu: TMenuItem
+        Caption = 'Save &as...'
+      end
+      object ExitFileMenu: TMenuItem
+        Caption = 'E&xit'
+      end
+    end
   end
 end

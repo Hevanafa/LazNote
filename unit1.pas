@@ -106,11 +106,22 @@ end;
 
 { Used to check if the user wants to save the file or not }
 function TForm1.CheckDirtyEditor: TModalResult;
+var
+  interpreted: string;
 begin
   if not dirtyEditor then
     CheckDirtyEditor := mrNo
-  else
-    CheckDirtyEditor := MessageDlg('Save file [filename]?', 'Save', mtConfirmation, mbYesNoCancel, 0);
+  else begin
+    if activeFilepath = '' then
+      interpreted := '[Untitled]'
+    else
+      interpreted := activeFilepath;
+
+    CheckDirtyEditor := MessageDlg(
+      'Save',
+      format('Save file %s?', [interpreted]),
+      mtConfirmation, mbYesNoCancel, 0);
+  end;
 end;
 
 

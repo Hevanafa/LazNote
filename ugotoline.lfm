@@ -6,6 +6,7 @@ object GoToLine: TGoToLine
   Caption = 'GoToLine'
   ClientHeight = 107
   ClientWidth = 209
+  OnCloseQuery = FormCloseQuery
   Position = poOwnerFormCenter
   object LineNumberLabel: TLabel
     Left = 8

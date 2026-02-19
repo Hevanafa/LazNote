@@ -85,6 +85,9 @@ type
     procedure UpdateCaption;
     procedure UpdatePositionText;
 
+  protected
+    GoToLineForm: TGoToLine;
+
   public
 
   end;
@@ -120,12 +123,14 @@ begin
 end;
 
 procedure TForm1.GoToEditMenuClick(Sender: TObject);
-var
-  frm: TGoToLine;
 begin
-  frm := TGoToLine.create(self);
-  frm.Show;
+  if GoToLineForm = nil then
+    GoToLineForm := TGoToLine.create(self);
 
+  if not GoToLineForm.Showing then begin
+    GoToLineForm.Show;
+    GoToLineForm.SetFocus
+  end;
 end;
 
 procedure TForm1.FormDropFiles(Sender: TObject; const FileNames: array of string);

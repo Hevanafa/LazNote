@@ -18,6 +18,7 @@ type
     CancelButton: TButton;
     LineNumberLabel: TLabel;
     LineNumberEdit: TSpinEdit;
+    procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
   private
 
   public
@@ -27,6 +28,14 @@ type
 implementation
 
 {$R *.lfm}
+
+{ TGoToLine }
+
+procedure TGoToLine.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
+begin
+  CanClose := false;
+  hide
+end;
 
 end.
 

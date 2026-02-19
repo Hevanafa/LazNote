@@ -1,0 +1,6 @@
+# Lazarus stuff
+backup/
+lib/
+*.exe
+*.lps
+*.dbg

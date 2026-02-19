@@ -22,6 +22,7 @@ object Form1: TForm1
     ScrollBars = ssBoth
     TabOrder = 0
     WordWrap = False
+    OnChange = ContentMemoChange
   end
   object MainStatusBar: TStatusBar
     Left = 0

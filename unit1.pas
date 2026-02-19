@@ -23,6 +23,14 @@ type
     EditMenu: TMenuItem;
     FormatMenu: TMenuItem;
     HelpMenu: TMenuItem;
+    CutEditMenu: TMenuItem;
+    CopyEditMenu: TMenuItem;
+    DeleteEditMenu: TMenuItem;
+    TimeDateEditMenu: TMenuItem;
+    PasteEditMenu: TMenuItem;
+    Separator1: TMenuItem;
+    Separator3: TMenuItem;
+    UndoEditMenu: TMenuItem;
     StatusBarViewMenu: TMenuItem;
     ViewMenu: TMenuItem;
     SaveAsFileMenu: TMenuItem;
@@ -32,6 +40,9 @@ type
     Separator2: TMenuItem;
 
     procedure ContentMemoChange(Sender: TObject);
+    procedure CopyEditMenuClick(Sender: TObject);
+    procedure CutEditMenuClick(Sender: TObject);
+    procedure DeleteEditMenuClick(Sender: TObject);
 
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure FormDropFiles(Sender: TObject; const FileNames: array of string);
@@ -39,10 +50,12 @@ type
 
     procedure NewFileMenuClick(Sender: TObject);
     procedure OpenFileMenuClick(Sender: TObject);
+    procedure PasteEditMenuClick(Sender: TObject);
     procedure SaveFileMenuClick(Sender: TObject);
     procedure SaveAsFileMenuClick(Sender: TObject);
     procedure ExitFileMenuClick(Sender: TObject);
     procedure StatusBarViewMenuClick(Sender: TObject);
+    procedure UndoEditMenuClick(Sender: TObject);
 
   private
     dirtyEditor: boolean;
@@ -97,6 +110,21 @@ procedure TForm1.ContentMemoChange(Sender: TObject);
 begin
   dirtyEditor := true;
   UpdateCaption
+end;
+
+procedure TForm1.CopyEditMenuClick(Sender: TObject);
+begin
+  ContentMemo.CopyToClipboard
+end;
+
+procedure TForm1.CutEditMenuClick(Sender: TObject);
+begin
+  ContentMemo.CutToClipboard
+end;
+
+procedure TForm1.DeleteEditMenuClick(Sender: TObject);
+begin
+  ContentMemo.SelText := ''
 end;
 
 procedure TForm1.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
@@ -169,6 +197,11 @@ begin
   end;
 end;
 
+procedure TForm1.PasteEditMenuClick(Sender: TObject);
+begin
+  ContentMemo.PasteFromClipboard
+end;
+
 procedure TForm1.SaveFileMenuClick(Sender: TObject);
 begin
   if activeFilepath = '' then SaveAsFileMenuClick(sender);
@@ -204,6 +237,11 @@ procedure TForm1.StatusBarViewMenuClick(Sender: TObject);
 begin
   MainStatusBar.Visible := not MainStatusBar.Visible;
   StatusBarViewMenu.Checked := MainStatusBar.Visible;
+end;
+
+procedure TForm1.UndoEditMenuClick(Sender: TObject);
+begin
+  ContentMemo.Undo
 end;
 
 function TForm1.CheckFileSize(const filename: string): TModalResult;

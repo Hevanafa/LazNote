@@ -68,6 +68,35 @@ object Form1: TForm1
     end
     object EditMenu: TMenuItem
       Caption = '&Edit'
+      object UndoEditMenu: TMenuItem
+        Caption = '&Undo'
+        OnClick = UndoEditMenuClick
+      end
+      object Separator1: TMenuItem
+        Caption = '-'
+      end
+      object CutEditMenu: TMenuItem
+        Caption = 'Cu&t'
+        OnClick = CutEditMenuClick
+      end
+      object CopyEditMenu: TMenuItem
+        Caption = '&Copy'
+        OnClick = CopyEditMenuClick
+      end
+      object PasteEditMenu: TMenuItem
+        Caption = '&Paste'
+        OnClick = PasteEditMenuClick
+      end
+      object DeleteEditMenu: TMenuItem
+        Caption = 'De&lete'
+        OnClick = DeleteEditMenuClick
+      end
+      object Separator3: TMenuItem
+        Caption = '-'
+      end
+      object TimeDateEditMenu: TMenuItem
+        Caption = 'Time / &Date'
+      end
     end
     object FormatMenu: TMenuItem
       Caption = 'F&ormat'

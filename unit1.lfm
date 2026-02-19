@@ -103,6 +103,13 @@ object Form1: TForm1
         Caption = 'De&lete'
         OnClick = DeleteEditMenuClick
       end
+      object Separator4: TMenuItem
+        Caption = '-'
+      end
+      object GoToEditMenu: TMenuItem
+        Caption = '&Go to...'
+        OnClick = GoToEditMenuClick
+      end
       object Separator3: TMenuItem
         Caption = '-'
       end

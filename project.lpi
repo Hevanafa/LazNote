@@ -78,6 +78,13 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="Unit1"/>
       </Unit>
+      <Unit>
+        <Filename Value="ugotoline.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="GoToLine"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="UGotoLine"/>
+      </Unit>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

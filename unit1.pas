@@ -7,7 +7,8 @@ interface
 
 uses
   Classes, SysUtils, Forms,
-  Controls, Graphics, Dialogs, Menus, StdCtrls, ComCtrls;
+  Controls, Graphics, Dialogs, Menus, StdCtrls, ComCtrls,
+  UGotoLine;
 
 type
 
@@ -20,6 +21,8 @@ type
 
     FileMenu: TMenuItem;
     FontFormatMenu: TMenuItem;
+    GoToEditMenu: TMenuItem;
+    Separator4: TMenuItem;
     WordWrapFormatMenu: TMenuItem;
     SelectAllEditMenu: TMenuItem;
     Separator1: TMenuItem;
@@ -52,6 +55,7 @@ type
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure FormDropFiles(Sender: TObject; const FileNames: array of string);
     procedure FormShow(Sender: TObject);
+    procedure GoToEditMenuClick(Sender: TObject);
 
     procedure NewFileMenuClick(Sender: TObject);
     procedure OpenFileMenuClick(Sender: TObject);
@@ -113,6 +117,15 @@ end;
 procedure TForm1.FormShow(Sender: TObject);
 begin
   NewFileMenuClick(nil)
+end;
+
+procedure TForm1.GoToEditMenuClick(Sender: TObject);
+var
+  frm: TGoToLine;
+begin
+  frm := TGoToLine.create(self);
+  frm.Show;
+
 end;
 
 procedure TForm1.FormDropFiles(Sender: TObject; const FileNames: array of string);

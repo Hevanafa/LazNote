@@ -42,6 +42,9 @@ type
     HelpMenu: TMenuItem;
 
     procedure ContentMemoChange(Sender: TObject);
+    procedure ContentMemoKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure ContentMemoKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure ContentMemoMouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure FormDropFiles(Sender: TObject; const FileNames: array of string);
@@ -70,6 +73,7 @@ type
     function CheckFileSize(const filename: string): TModalResult;
     function CheckDirtyEditor: TModalResult;
     procedure UpdateCaption;
+    procedure UpdatePositionText;
 
   public
 
@@ -114,6 +118,26 @@ procedure TForm1.ContentMemoChange(Sender: TObject);
 begin
   dirtyEditor := true;
   UpdateCaption
+end;
+
+procedure TForm1.ContentMemoKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+begin
+  UpdatePositionText
+end;
+
+procedure TForm1.ContentMemoKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
+begin
+  UpdatePositionText
+end;
+
+procedure TForm1.UpdatePositionText;
+begin
+  MainStatusBar.Panels[1].Text := format('Char %d', [ContentMemo.SelStart])
+end;
+
+procedure TForm1.ContentMemoMouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+begin
+  UpdatePositionText
 end;
 
 procedure TForm1.CopyEditMenuClick(Sender: TObject);
